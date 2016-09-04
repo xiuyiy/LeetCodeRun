@@ -33,26 +33,24 @@ Note that the answer must be a substring, "pwke" is a subsequence and not a subs
         boolean[] counter;
         int i, j;
         i = 0;
-        j = 0;
 
         while (i < len) {
-            j = i;
-            //reset counter and currMax
+            j = i++;
+            //each time I have to reset counter and currMax
             counter = new boolean[256];
+            result = currMax > result ? currMax : result;
             currMax = 0;
+
             while (j < len) {
-                if (counter[j] == true || j == len) {
-                    i++;
-                    if (currMax != 0 && currMax > result) {
-                        //update the new Max length
-                        result = currMax;
-                    }
+                char currChar = s.charAt(j);
+                if (counter[currChar] == true || j == len) {
+
                     break;
                 } else {
                     currMax++;
                     //set the counter to true, so that we know this letter was visited
-                    counter[j] = true;
-                    //increment j to see if it can go further
+                    //also increment j
+                    counter[currChar] = true;
                     j++;
                 }
             }
